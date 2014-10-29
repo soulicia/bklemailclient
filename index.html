@@ -54,7 +54,7 @@
       // Load the API and make an API call.  Display the results on the screen.
       function makeApiCall() {
         gapi.client.load('gmail', 'v1', function() {
-          var request = gapi.client.gmail.users.labels.list();
+          var request = gapi.client.gmail.users.labels.list('me');
           request.execute(function(resp) {
             // var heading = document.createElement('h4');
             // var image = document.createElement('img');
