@@ -6,6 +6,7 @@
   <body>
     <!--Add a button for the user to click to initiate auth sequence -->
     <button id="authorize-button" style="visibility: hidden">Authorize</button>
+    <button id="send-button">Send</button>
     <script type="text/javascript">
       // Enter a client ID for a web application from the Google Developer Console.
       // The provided clientId will only work if the sample is run directly from
@@ -23,6 +24,9 @@
 
       // To enter one or more authentication scopes, refer to the documentation for the API.
       var scopes = 'https://mail.google.com/';
+
+      var sendButton = document.getElementById('send-button');
+      sendButton.onclick = handleSend;
 
       // Use a button to handle authentication the first time.
       function handleClientLoad() {
@@ -49,6 +53,30 @@
       function handleAuthClick(event) {
         gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
         return false;
+      }
+
+      /**
+       * Send Message.
+       *
+       * @param  {String} userId User's email address. The special value 'me'
+       * can be used to indicate the authenticated user.
+       * @param  {String} email RFC 5322 formatted String.
+       * @param  {Function} callback Function to call when the request is complete.
+       */
+      function sendMessage(userId, email, callback) {
+        var base64EncodedEmail = btoa(email);
+        var request = gapi.client.gmail.users.messages.send({
+          'userId': userId,
+          'message': {
+            'raw': base64EncodedEmail
+          }
+        });
+        request.execute(callback);
+      }
+
+      function handleSend() {
+        var mymail = "From: me\nTo: frm.adiputra@gmail.com\nSubject: Coba\n\nHanya isinya.\n";
+        sendMessage('me', mymail, function(resp) { console.info(resp) });
       }
 
       // Load the API and make an API call.  Display the results on the screen.
