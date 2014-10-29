@@ -69,6 +69,7 @@
         var base64EncodedEmail = btoa(email);
         var request = gmailSrvc.users.messages.send({
           'userId': userId,
+          'uploadType': 'media',
           'message': {
             'raw': base64EncodedEmail
           }
@@ -78,7 +79,7 @@
 
       function handleSend() {
         var mymail = "From: me\nTo: frm.adiputra@gmail.com\nSubject: Coba\n\nHanya isinya.\n";
-        sendMessage('me', {'raw': btoa(mymail)}, function(resp) { console.info(resp) });
+        sendMessage('me', mymail}, function(resp) { console.info(resp) });
       }
 
       // Load the API and make an API call.  Display the results on the screen.
