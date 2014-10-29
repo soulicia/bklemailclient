@@ -70,7 +70,7 @@
         var request = gmailSrvc.users.messages.send({
           'userId': userId,
           'uploadType': 'media',
-          'message': {
+          'resource': {
             'raw': base64EncodedEmail
           }
         });
