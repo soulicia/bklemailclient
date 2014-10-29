@@ -69,7 +69,6 @@
         var base64EncodedEmail = btoa(email);
         var request = gmailSrvc.users.messages.send({
           'userId': userId,
-          'uploadType': 'media',
           'resource': {
             'raw': base64EncodedEmail
           }
