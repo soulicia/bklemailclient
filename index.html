@@ -28,6 +28,8 @@
       var sendButton = document.getElementById('send-button');
       sendButton.onclick = handleSend;
 
+      var gmailSrvc;
+
       // Use a button to handle authentication the first time.
       function handleClientLoad() {
         gapi.client.setApiKey(apiKey);
@@ -65,7 +67,7 @@
        */
       function sendMessage(userId, email, callback) {
         var base64EncodedEmail = btoa(email);
-        var request = gapi.client.gmail.users.messages.send({
+        var request = gmailSrvc.users.messages.send({
           'userId': userId,
           'message': {
             'raw': base64EncodedEmail
@@ -82,6 +84,7 @@
       // Load the API and make an API call.  Display the results on the screen.
       function makeApiCall() {
         gapi.client.load('gmail', 'v1', function() {
+          gmailSrvc = gapi.client.gmail;
           var request = gapi.client.gmail.users.labels.list({'userId': 'me'});
           request.execute(function(resp) {
             // var heading = document.createElement('h4');
