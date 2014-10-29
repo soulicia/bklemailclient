@@ -79,7 +79,7 @@
 
       function handleSend() {
         var mymail = "From: me\nTo: frm.adiputra@gmail.com\nSubject: Coba\n\nHanya isinya.\n";
-        sendMessage('me', mymail}, function(resp) { console.info(resp) });
+        sendMessage('me', mymail, function(resp) { console.info(resp) });
       }
 
       // Load the API and make an API call.  Display the results on the screen.
