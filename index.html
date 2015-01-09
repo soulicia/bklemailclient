@@ -305,7 +305,7 @@
                                 <i class="fa fa-dashboard"></i> <span>Halaman Admin</span>
                             </a>
                         </li>
-                        
+
                         <!--<li>
                             <a href="pages/mailbox.html">
                                 <i class="fa fa-envelope"></i> <span>Mailbox</span>
@@ -343,7 +343,7 @@
                     <!-- Main row -->
                     <div class="row">
                         <!-- Left col -->
-                        <section class="col-lg-7 connectedSortable">                                                    
+                        <section class="col-lg-7 connectedSortable">
                             <!-- quick email widget -->
                             <div class="box box-info">
                                 <div class="box-header">
@@ -375,7 +375,7 @@
                                                 <i class="fa fa-paperclip"></i> Attachment <input type="file" name="attachment"/>
                                             </div>
                                             <p class="help-block">Max. 32MB</p>
-                                         </div>  
+                                         </div>
 
                                     </form>
                                 </div>
@@ -389,7 +389,7 @@
 
                         </section><!-- /.Left col -->
                         <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                        <section class="col-lg-5 connectedSortable"> 
+                        <section class="col-lg-5 connectedSortable">
                             <div class="box box-success">
                                 <div class="box-header">
                                     <h4 class="box-title">Pilih SKPD Tujuan</h4>
@@ -546,7 +546,16 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 
-        <!-- add new calendar event modal -->
+        <script src="ecl.js"></script>
+        <script type="text/javascript">
+        ecl.clientId = '979256935714-ebk0o87kbnlqq4qvfgk76ho744nnfaon.apps.googleusercontent.com';
+        ecl.apiKey = 'AIzaSyDTltDk5Zwzfl8rtDjhf-zBY-qI68dpdxo';
+        ecl.onUnauthorized = function() {
+          alert('unauthorized');
+        };
+        </script>
+        <script src="https://apis.google.com/js/client.js?onload=ecl.onLoad"></script>
+
 
 
         <!-- jQuery 2.0.2 -->
