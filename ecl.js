@@ -3,6 +3,7 @@
 var ecl = {
 	clientId: '',
 	apiKey: '',
+  scopes: '',
 
 	// Callback when unauthorized.
 	onUnauthorized: null,
@@ -17,7 +18,7 @@ ecl.onLoad = function() {
 
   // Check auth
   window.setTimeout(function() {
-	  gapi.auth.authorize({client_id: ecl.clientId, scope: scopes, immediate: true}, handleAuthResult);
+	  gapi.auth.authorize({client_id: ecl.clientId, scope: ecl.scopes, immediate: true}, handleAuthResult);
   },1);
 }
 
@@ -50,7 +51,7 @@ function defaultHandleAuthResult(authResult) {
 }
 
 function requestAuthorization(event) {
-  gapi.auth.authorize({client_id: ecl.clientId, scope: scopes, immediate: false}, handleAuthResult);
+  gapi.auth.authorize({client_id: ecl.clientId, scope: ecl.scopes, immediate: false}, handleAuthResult);
   return false;
 }
 
