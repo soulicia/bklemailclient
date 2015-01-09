@@ -53,21 +53,18 @@ function renderTemplate(tmpl, targ, data) {
 }
 
 function loadUserProfile() {
-  renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', FIXTURE.userProfile);
-  // var template = $('#tmplMyEmailAddress').html();
-  // Mustache.parse(template);   // optional, speeds up future uses
-  // var rendered = Mustache.render(template, FIXTURE.userProfile);
-  // $('#myEmailAddress').html(rendered);
+  // renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', FIXTURE.userProfile);
 
-  // var req = ecl.gmail.users.getProfile({'userId': 'me'});
-  // req.then(
-  //   function(resp) {
-  //     // body...
-  //   },
-  //   function(reason) {
-  //     // body...
-  //   }
-  // );
+  var req = ecl.gmail.users.getProfile({'userId': 'me'});
+  req.then(
+    function(resp) {
+      console.log('getProfile resp:', resp);
+      renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp);
+    },
+    function(reason) {
+      alert(reason);
+    }
+  );
 }
 
 function loadMailTargets() {
