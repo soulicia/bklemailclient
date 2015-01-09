@@ -5,6 +5,7 @@ var ecl = {
 	apiKey: '',
   scopes: '',
   gmail: null,
+  gplus: null,
 
 	// Callback when unauthorized.
 	onUnauthorized: null,
@@ -31,17 +32,6 @@ function handleAuthResult(authResult) {
   }
 }
 
-function defaultHandleAuthResult(authResult) {
-  var authorizeButton = document.getElementById('authorize-button');
-  if (authResult && !authResult.error) {
-    authorizeButton.style.visibility = 'hidden';
-    makeApiCall();
-  } else {
-    authorizeButton.style.visibility = '';
-    authorizeButton.onclick = requestAuthorization;
-  }
-}
-
 function requestAuthorization(event) {
   gapi.auth.authorize({client_id: ecl.clientId, scope: ecl.scopes, immediate: false}, handleAuthResult);
   return false;
@@ -53,7 +43,7 @@ function makeApiCall() {
     ecl.gmail = gapi.client.gmail;
   });
 
-  gapi.client.load('gplus', 'v1', function() {
+  gapi.client.load('plus', 'v1', function() {
     ecl.gplus = gapi.client.plus;
   });
 }

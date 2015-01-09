@@ -27,7 +27,7 @@ $( "#mail" ).submit(function(event) {
   return false;
 });
 
-ecl.onAuthorized();
+// ecl.onAuthorized();
 
 
 
