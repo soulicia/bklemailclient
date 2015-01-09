@@ -15,21 +15,17 @@ var ecl = {
 };
 
 function handleAuthResult(authResult) {
-  var authorizeButton = document.getElementById('authorize-button');
   if (authResult && !authResult.error) {
   	if (ecl.onAuthorized) {
   		ecl.onAuthorized();
 	    makeApiCall();
   	}
-    // authorizeButton.style.visibility = 'hidden';
   } else {
   	if (ecl.onUnauthorized) {
       ecl.gmail = null;
       ecl.gplus = null;
   		ecl.onUnauthorized();
   	}
-    // authorizeButton.style.visibility = '';
-    // authorizeButton.onclick = requestAuthorization;
   }
 }
 
@@ -44,9 +40,9 @@ function makeApiCall() {
     ecl.gmail = gapi.client.gmail;
   });
 
-  gapi.client.load('plus', 'v1', function() {
-    ecl.gplus = gapi.client.plus;
-  });
+  // gapi.client.load('plus', 'v1', function() {
+  //   ecl.gplus = gapi.client.plus;
+  // });
 }
 
 // To call on client api load.
