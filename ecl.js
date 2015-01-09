@@ -36,19 +36,28 @@ ecl.requestAuthorization = function(event) {
 
 // Load the API.
 function loadAPI(cb) {
-  var batch = gapi.client.newBatch();
-  batch.add(gapi.client.load('gmail', 'v1'));
-  batch.add(gapi.client.load('plus', 'v1'));
-  batch.then(
-    function() {
-      ecl.gmail = gapi.client.gmail;
-      ecl.gplus = gapi.client.plus;
-      cb();
-    },
-    function(reason) {
-      alert('reason');
-    }
-  );
+  // var batch = gapi.client.newBatch();
+  // batch.add(gapi.client.load('gmail', 'v1'));
+  // batch.add(gapi.client.load('plus', 'v1'));
+  // batch.then(
+  //   function() {
+  //     ecl.gmail = gapi.client.gmail;
+  //     ecl.gplus = gapi.client.plus;
+  //     cb();
+  //   },
+  //   function(reason) {
+  //     alert('reason');
+  //   }
+  // );
+
+  gapi.client.load('gmail', 'v1').then(function() {
+    gapi.client.load('plus', 'v1').then(function() {
+        ecl.gmail = gapi.client.gmail;
+        ecl.gplus = gapi.client.plus;
+        cb();
+    });
+  });
+
   // gapi.client.load('gmail', 'v1', function() {
   //   ecl.gmail = gapi.client.gmail;
   // });
@@ -56,18 +65,6 @@ function loadAPI(cb) {
   // gapi.client.load('plus', 'v1', function() {
   //   ecl.gplus = gapi.client.plus;
   // });
-}
-
-ecl.gmail = function(cb) {
-  gapi.client.load('gmail', 'v1', function() {
-    cb(gapi.client.gmail);
-    // var gmail = gapi.client.gmail;
-    // ecl.gmail = gapi.client.gmail;
-    // var req = gmail.users.getProfile({'userId': 'me'});
-    // req.execute(function(resp) {
-    //     console.log('getProfile resp:', resp);
-    // });
-  });
 }
 
 // To call on client api load.
