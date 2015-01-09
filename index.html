@@ -553,6 +553,9 @@
         ecl.onUnauthorized = function() {
           alert('unauthorized');
         };
+        ecl.onAuthorized = function() {
+          alert('AUTHORIZED');
+        };
         function eclOnLoad() {
           alert('onload');
           ecl.onLoad();
