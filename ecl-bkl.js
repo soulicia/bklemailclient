@@ -3,7 +3,7 @@
 
 ecl.clientId = '979256935714-ebk0o87kbnlqq4qvfgk76ho744nnfaon.apps.googleusercontent.com';
 ecl.apiKey = 'AIzaSyDTltDk5Zwzfl8rtDjhf-zBY-qI68dpdxo';
-ecl.scopes = 'https://mail.google.com/ https://www.googleapis.com/auth/plus.login';
+ecl.scopes = 'https://mail.google.com/ https://www.googleapis.com/auth/plus.me';
 
 ecl.onUnauthorized = function() {
   console.log('gapi unauthorized');
