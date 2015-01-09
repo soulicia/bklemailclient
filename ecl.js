@@ -38,11 +38,12 @@ ecl.requestAuthorization = function(event) {
 // Load the API.
 function makeApiCall() {
   gapi.client.load('gmail', 'v1', function() {
-    var gmail = gapi.client.gmail;
-    var req = gmail.users.getProfile({'userId': 'me'});
-    req.execute(function(resp) {
-        console.log('getProfile resp:', resp);
-    });
+    // var gmail = gapi.client.gmail;
+    ecl.gmail = gapi.client.gmail;
+    // var req = gmail.users.getProfile({'userId': 'me'});
+    // req.execute(function(resp) {
+    //     console.log('getProfile resp:', resp);
+    // });
   });
 
   // gapi.client.load('plus', 'v1', function() {
