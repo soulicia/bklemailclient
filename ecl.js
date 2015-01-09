@@ -37,8 +37,8 @@ function requestAuthorization(event) {
 // Load the API.
 function makeApiCall() {
   gapi.client.load('gmail', 'v1', function() {
-    ecl.gmail = gapi.client.gmail;
-    var req = ecl.gmail.users.getProfile({'userId': 'me'});
+    var gmail = gapi.client.gmail;
+    var req = gmail.users.getProfile({'userId': 'me'});
     req.execute(function(resp) {
         console.log('getProfile resp:', resp);
     });

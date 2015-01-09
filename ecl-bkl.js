@@ -55,16 +55,16 @@ function renderTemplate(tmpl, targ, data) {
 function loadUserProfile() {
   // renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', FIXTURE.userProfile);
 
-  var req = ecl.gmail.users.getProfile({'userId': 'me'});
-  req.then(
-    function(resp) {
-      console.log('getProfile resp:', resp);
-      renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp);
-    },
-    function(reason) {
-      alert(reason);
-    }
-  );
+  // var req = ecl.gmail.users.getProfile({'userId': 'me'});
+  // req.then(
+  //   function(resp) {
+  //     console.log('getProfile resp:', resp);
+  //     renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp);
+  //   },
+  //   function(reason) {
+  //     alert(reason);
+  //   }
+  // );
 }
 
 function loadMailTargets() {
