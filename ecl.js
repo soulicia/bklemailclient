@@ -21,6 +21,7 @@ function handleAuthResult(authResult) {
 	    makeApiCall();
   	}
   } else {
+    console.log('auth error:', authResult.error);
   	if (ecl.onUnauthorized) {
       ecl.gmail = null;
       ecl.gplus = null;
@@ -29,7 +30,7 @@ function handleAuthResult(authResult) {
   }
 }
 
-function requestAuthorization(event) {
+ecl.requestAuthorization = function(event) {
   gapi.auth.authorize({client_id: ecl.clientId, scope: ecl.scopes, immediate: false}, handleAuthResult);
   return false;
 }
