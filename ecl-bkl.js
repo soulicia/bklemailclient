@@ -5,10 +5,6 @@ ecl.clientId = '979256935714-ebk0o87kbnlqq4qvfgk76ho744nnfaon.apps.googleusercon
 ecl.apiKey = 'AIzaSyDTltDk5Zwzfl8rtDjhf-zBY-qI68dpdxo';
 ecl.scopes = 'https://mail.google.com/';
 
-function eclOnLoad() {
-  ecl.onLoad();
-}
-
 ecl.onUnauthorized = function() {
   console.log('gapi unauthorized');
   // $('.unauthorized').show();
