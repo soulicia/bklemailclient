@@ -553,6 +553,10 @@
         ecl.onUnauthorized = function() {
           alert('unauthorized');
         };
+        function eclOnLoad() {
+          alert('onload');
+          ecl.onLoad();
+        }
         </script>
         <script src="https://apis.google.com/js/client.js?onload=ecl.onLoad"></script>
 
