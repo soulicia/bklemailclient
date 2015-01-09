@@ -11,7 +11,7 @@ ecl.onUnauthorized = function() {
 };
 
 ecl.onAuthorized = function() {
-  console.log('gapi authorized', ecl);
+  // console.log('gapi authorized', ecl);
   // $('.authorized').show();
   loadUserProfile();
   loadMailTargets();
@@ -70,8 +70,18 @@ function loadUserProfile() {
   var req = ecl.gmail.users.getProfile({'userId': 'me'});
   req.then(
     function(resp) {
-      console.log('getProfile resp:', resp);
       renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp.result);
+    },
+    function(reason) {
+      alert(reason);
+    }
+  );
+
+  req = ecl.gplus.people.get({'userId': 'me'});
+  req.then(
+    function(resp) {
+      console.log('getPeople resp:', resp);
+      // renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp.result);
     },
     function(reason) {
       alert(reason);
