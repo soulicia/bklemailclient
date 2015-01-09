@@ -11,7 +11,7 @@ ecl.onUnauthorized = function() {
 };
 
 ecl.onAuthorized = function() {
-  console.log('gapi authorized');
+  console.log('gapi authorized', ecl);
   // $('.authorized').show();
   loadUserProfile();
   loadMailTargets();
