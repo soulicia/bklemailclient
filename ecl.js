@@ -4,6 +4,7 @@ var ecl = {
 	clientId: '',
 	apiKey: '',
   scopes: '',
+  gmail: null,
 
 	// Callback when unauthorized.
 	onUnauthorized: null,
@@ -11,16 +12,6 @@ var ecl = {
 	// Callback when authorized.
 	onAuthorized: null,
 };
-
-// To call on client api load.
-ecl.onLoad = function() {
-  gapi.client.setApiKey(ecl.apiKey);
-
-  // Check auth
-  window.setTimeout(function() {
-	  gapi.auth.authorize({client_id: ecl.clientId, scope: ecl.scopes, immediate: true}, handleAuthResult);
-  },1);
-}
 
 function handleAuthResult(authResult) {
   var authorizeButton = document.getElementById('authorize-button');
@@ -32,6 +23,7 @@ function handleAuthResult(authResult) {
     // authorizeButton.style.visibility = 'hidden';
   } else {
   	if (ecl.onUnauthorized) {
+      ecl.gmail = null;
   		ecl.onUnauthorized();
   	}
     // authorizeButton.style.visibility = '';
@@ -55,22 +47,44 @@ function requestAuthorization(event) {
   return false;
 }
 
-// Load the API and make an API call.  Display the results on the screen.
+// Load the API.
 function makeApiCall() {
-  gapi.client.load('plus', 'v1', function() {
-    var request = gapi.client.plus.people.get({
-      'userId': 'me'
-    });
-    request.execute(function(resp) {
-      var heading = document.createElement('h4');
-      var image = document.createElement('img');
-      image.src = resp.image.url;
-      heading.appendChild(image);
-      heading.appendChild(document.createTextNode(resp.displayName));
-
-      document.getElementById('content').appendChild(heading);
-    });
+  gapi.client.load('gmail', 'v1', function() {
+    ecl.gmail = gapi.client.gmail;
   });
+
+  gapi.client.load('gplus', 'v1', function() {
+    ecl.gplus = gapi.client.plus;
+  });
+}
+
+// To call on client api load.
+ecl.onLoad = function() {
+  gapi.client.setApiKey(ecl.apiKey);
+
+  // Check auth
+  window.setTimeout(function() {
+    gapi.auth.authorize({client_id: ecl.clientId, scope: ecl.scopes, immediate: true}, handleAuthResult);
+  },1);
+}
+
+/**
+ * Send Message.
+ *
+ * @param  {String} userId User's email address. The special value 'me'
+ * can be used to indicate the authenticated user.
+ * @param  {String} email RFC 5322 formatted String.
+ * @param  {Function} callback Function to call when the request is complete.
+ */
+function sendMessage(userId, email, callback) {
+  var base64EncodedEmail = btoa(email);
+  var request = ecl.gmail.users.messages.send({
+    'userId': userId,
+    'resource': {
+      'raw': base64EncodedEmail
+    }
+  });
+  request.execute(callback);
 }
 
 exports.ecl = ecl;
