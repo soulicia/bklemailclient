@@ -25,6 +25,7 @@ function handleAuthResult(authResult) {
   } else {
   	if (ecl.onUnauthorized) {
       ecl.gmail = null;
+      ecl.gplus = null;
   		ecl.onUnauthorized();
   	}
     // authorizeButton.style.visibility = '';
