@@ -71,7 +71,7 @@ function loadUserProfile() {
   req.then(
     function(resp) {
       console.log('getProfile resp:', resp);
-      renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp);
+      renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp.result);
     },
     function(reason) {
       alert(reason);
