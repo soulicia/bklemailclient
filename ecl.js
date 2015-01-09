@@ -17,8 +17,8 @@ var ecl = {
 function handleAuthResult(authResult) {
   if (authResult && !authResult.error) {
   	if (ecl.onAuthorized) {
-  		ecl.onAuthorized();
-	    makeApiCall();
+	    loadAPI();
+      ecl.onAuthorized();
   	}
   } else {
     console.log('auth error:', authResult.error);
@@ -36,7 +36,7 @@ ecl.requestAuthorization = function(event) {
 }
 
 // Load the API.
-function makeApiCall() {
+function loadAPI() {
   gapi.client.load('gmail', 'v1', function() {
     // var gmail = gapi.client.gmail;
     ecl.gmail = gapi.client.gmail;
