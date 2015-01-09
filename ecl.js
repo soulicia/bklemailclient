@@ -1,4 +1,4 @@
-(function(exports){
+(function(window){
 
 var ecl = {
 	clientId: '',
@@ -74,6 +74,6 @@ function sendMessage(userId, email, callback) {
   request.execute(callback);
 }
 
-exports.ecl = ecl;
+window.ecl = ecl;
 
 })(window);
