@@ -39,15 +39,9 @@ function makeApiCall() {
   gapi.client.load('gmail', 'v1', function() {
     ecl.gmail = gapi.client.gmail;
     var req = ecl.gmail.users.getProfile({'userId': 'me'});
-    req.then(
-      function(resp) {
+    req.execute(function(resp) {
         console.log('getProfile resp:', resp);
-        renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp);
-      },
-      function(reason) {
-        alert(reason);
-      }
-    );
+    });
   });
 
   // gapi.client.load('plus', 'v1', function() {
