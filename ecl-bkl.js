@@ -2,17 +2,28 @@
 
 
 ecl.clientId = '979256935714-ebk0o87kbnlqq4qvfgk76ho744nnfaon.apps.googleusercontent.com';
-ecl.apiKey = 'AIzaSyDTltDk5Zwzfl8rtDjhf-zBY-qI68dpdxo';
 ecl.scopes = 'https://mail.google.com/ https://www.googleapis.com/auth/plus.me';
+ecl.apiKey = 'AIzaSyDTltDk5Zwzfl8rtDjhf-zBY-qI68dpdxo';
+
+// CHANGE THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// ecl.apiKey = 'AIzaSyDL78hg8anke_-0176qkyE3tNllNuhGME4';
+
+function noop() {}
 
 ecl.onUnauthorized = function() {
   console.log('gapi unauthorized');
-  // $('.unauthorized').show();
+  $('.authorized').hide();
+  $('.unauthorized').show();
+  var authBtn = document.getElementById('authBtn');
+  authBtn.onclick = ecl.requestAuthorization;
 };
 
 ecl.onAuthorized = function() {
   // console.log('gapi authorized', ecl);
-  // $('.authorized').show();
+  $('.unauthorized').hide();
+  $('.authorized').show();
+  var authBtn = document.getElementById('authBtn');
+  authBtn.onclick = noop;
   loadUserProfile();
   loadMailTargets();
 };
@@ -67,21 +78,21 @@ function loadUserProfile() {
   //   );
   // });
 
-  var req = ecl.gmail.users.getProfile({'userId': 'me'});
-  req.then(
-    function(resp) {
-      renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp.result);
-    },
-    function(reason) {
-      alert(reason);
-    }
-  );
+  // var req = ecl.gmail.users.getProfile({'userId': 'me'});
+  // req.then(
+  //   function(resp) {
+  //     renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp.result);
+  //   },
+  //   function(reason) {
+  //     alert(reason);
+  //   }
+  // );
 
-  req = ecl.gplus.people.get({'userId': 'me'});
+  var req = ecl.gplus.people.get({'userId': 'me'});
   req.then(
     function(resp) {
       console.log('getPeople resp:', resp);
-      // renderTemplate('#tmplMyEmailAddress', '#myEmailAddress', resp.result);
+      renderTemplate('#tmplUserPanel', '#userPanel', resp.result);
     },
     function(reason) {
       alert(reason);

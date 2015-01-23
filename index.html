@@ -40,7 +40,7 @@
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
         <div class="unauthorized">
-          <button>Authorize</button>
+          <button id="authBtn">Authorize</button>
         </div>
         <header class="header authorized">
             <a href="index.html" class="logo">
@@ -112,14 +112,7 @@
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
-                    <div class="user-panel">
-                        <div class="image">
-                            <img src="img/avatar04.png" class="img-circle" alt="User Image" />
-                        </div>
-                        <div class="info">
-                            <p id="myEmailAddress"></p>
-
-                        </div>
+                    <div id="userPanel" class="user-panel">
                     </div>
                     <!-- search form -->
                     <!-- /.search form -->
@@ -246,6 +239,16 @@
         <!--
         <script src="js/AdminLTE/demo.js" type="text/javascript"></script>
         -->
+
+        <script id="tmplUserPanel" type="x-tmpl-mustache">
+            <div class="image">
+                <img src="{{image.url}}" class="img-circle" alt="User Image" />
+            </div>
+            <div class="info">
+                <p>{{displayName}}</p>
+
+            </div>
+        </script>
 
         <script id="tmplMyEmailAddress" type="x-tmpl-mustache">
         {{ emailAddress }}
