@@ -28,11 +28,21 @@
             display: none;
           }
           .authorized{
-            /*display: none;*/
+            display: none;
           }
 
           .user-panel > .info {
             padding-left: 0;
+          }
+
+          #userMenu .img-circle {
+            width: 20px;
+            margin-right: 4px;
+          }
+
+          .mail-target {
+            padding-left: 15px;
+            padding-right: 15px;
           }
         </style>
 
@@ -40,7 +50,18 @@
     <body class="skin-blue">
         <!-- header logo: style can be found in header.less -->
         <div class="unauthorized">
-          <button id="authBtn">Authorize</button>
+            <div class="modal" style="display:block;" data-show="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <p>Aplikasi ini membutuhkan akses ke akun GMail anda.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="authBtn" type="button" class="btn btn-primary">Ijinkan</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
         </div>
         <header class="header authorized">
             <a href="index.html" class="logo">
@@ -66,30 +87,14 @@
 
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span>Faikul Umam <i class="caret"></i></span>
+                            <a id="userMenu" href="#" class="dropdown-toggle" data-toggle="dropdown">
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <img src="img/avatar04.png" class="img-circle" alt="User Image" />
-                                    <p>
-                                        Faikul Umam - Web Developer
-                                        <small>Member since Nov. 1945</small>
-                                    </p>
+                                <li id="userDropdown" class="user-header bg-light-blue">
                                 </li>
                                 <!-- Menu Body -->
                                 <li class="user-body">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
@@ -169,12 +174,14 @@
                                         <div class="box-footer clearfix">
                                             <button type="submit" class="pull-right btn btn-default" id="sendEmail">Send <i class="fa fa-arrow-circle-right"></i></button>
                                             <div class="btn btn-success btn-file">
-                                                <i class="fa fa-paperclip"></i> Attachment <input type="file" name="attachment"/>
+                                                <i class="fa fa-paperclip"></i> Attachment <input type="file" id="attachment" name="attachment"/>
                                             </div>
                                             <p class="help-block">Max. 32MB</p>
                                          </div>
 
                                     </form>
+
+                                    <div id="alerts"></div>
                                 </div>
 
 
@@ -200,6 +207,19 @@
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+
+        <div id="sendSuccess" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <p>Pesan anda telah terkirim.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
         <script src="js/mustache.min.js"></script>
         <!-- jQuery 2.0.2 -->
@@ -242,12 +262,30 @@
 
         <script id="tmplUserPanel" type="x-tmpl-mustache">
             <div class="image">
-                <img src="{{image.url}}" class="img-circle" alt="User Image" />
+                <img src="{{image}}" class="img-circle" alt="User Image" />
             </div>
             <div class="info">
-                <p>{{displayName}}</p>
+                <p>{{#displayName}}{{.}}{{/displayName}}{{^displayName}}{{emailAddress}}{{/displayName}}</p>
 
             </div>
+        </script>
+
+        <script id="tmplUserMenu" type="x-tmpl-mustache">
+            <img src="{{image}}" class="img-circle" alt="User Image" />
+            <span>{{#displayName}}{{.}}{{/displayName}}{{^displayName}}{{emailAddress}}{{/displayName}} <i class="caret"></i></span>
+        </script>
+
+        <script id="tmplUserDropdown" type="x-tmpl-mustache">
+            <img src="{{image}}" class="img-circle" alt="User Image" />
+            <p>
+                {{#displayName}}
+                    {{.}}
+                    <small>{{emailAddress}}</small>
+                {{/displayName}}
+                {{^displayName}}
+                    {{emailAddress}}
+                {{/displayName}}
+            </p>
         </script>
 
         <script id="tmplMyEmailAddress" type="x-tmpl-mustache">
@@ -256,7 +294,7 @@
 
         <script id="tmplMailTargets" type="x-tmpl-mustache">
         {{#targets}}
-        <div class="col-lg-6">
+        <div class="mail-target">
             <div class="form-group">
                 <label>
                     <input type="checkbox" id="{{name}}" data-emailaddress="{{emailAddress}}" class="flat-red"/> {{name}}
@@ -266,7 +304,16 @@
         {{/targets}}
         </script>
 
+        <script id="tmplAlert" type="x-tmpl-mustache">
+            <div class="alert alert-danger" role="alert">
+                <h4>{{title}}</h4>
+                <p>{{message}}</p>
+            </div>
+        </script>
+
+
         <script src="fixture.js"></script>
+        <script src="mails.js"></script>
         <script src="ecl.js"></script>
         <script src="ecl-bkl.js"></script>
 

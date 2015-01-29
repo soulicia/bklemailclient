@@ -8,6 +8,8 @@ FIXTURE.userProfile = {
 };
 
 FIXTURE.mailTargets = {targets: [
+	{name: 'PING', emailAddress: 'frm.adiputra@gmail.com'},
+	{name: 'PING2', emailAddress: 'faycool.befreesource@gmail.com'},
 	{name: 'Dishub', emailAddress: 'dishub@example.com'},
 	{name: 'Bapemmas', emailAddress: 'bapemmas@example.com'},
 	{name: 'Pertambangan', emailAddress: 'pertambangan@example.com'},
